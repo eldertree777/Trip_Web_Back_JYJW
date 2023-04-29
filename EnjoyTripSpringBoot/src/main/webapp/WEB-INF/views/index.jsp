@@ -22,6 +22,7 @@
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <style type="text/css">
+
 .carousel-inner {
 	width: auto;
 	height: 500px;
@@ -356,7 +357,7 @@
           return;
         } else {
           let form = document.querySelector("#form-login");
-          form.setAttribute("action", "<%=root%>/user?action=login");
+          form.setAttribute("action", "<%=root%>/user/login");
           form.submit();
         }
       });
@@ -420,7 +421,7 @@
           
           else {
             let form = document.querySelector("#form-join");
-            form.setAttribute("action", "<%=root%>/user?action=join");
+            form.setAttribute("action", "<%=root%>/user/join");
             form.submit();
           }
         });
@@ -430,7 +431,7 @@
 
       
       document.querySelector("#btn-logout").addEventListener("click", function () {
-      	location.href = "<%=root%>/user?action=logout";});
+      	location.href = "<%=root%>/user/logout";});
       
       document.querySelector("#userid-update").placeholder="<%=memberDto.getUserId()%>"; 
       
@@ -440,13 +441,13 @@
               return;
             }else {
               let form = document.querySelector("#form-update");
-              form.setAttribute("action", "<%=root%>/user?action=update&userid=<%=memberDto.getUserId()%>");
+              form.setAttribute("action", "<%=root%>/user/update?userId=<%=memberDto.getUserId()%>");
               form.submit();
             }
         });
       
       document.querySelector("#btn-delete").addEventListener("click", function () {
-    	  location.href = "<%=root%>/user?action=delete&userid=<%=memberDto.getUserId()%>";
+    	  location.href = "<%=root%>/user/delete?userId=<%=memberDto.getUserId()%>";
       });
       
       

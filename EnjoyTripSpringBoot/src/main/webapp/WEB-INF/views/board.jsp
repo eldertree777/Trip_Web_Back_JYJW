@@ -18,14 +18,9 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css" />
         <script src="https://kit.fontawesome.com/5f164fb894.js" crossorigin="anonymous"></script>
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#navbar").load("./static/navbar.jsp");
-                $("#footer").load("./static/footer.jsp");
-            });
-        </script>
-    </head>
 
+    </head>
+<%@ include file="./static/navbar.jsp"%>
     <body>
         <!-- 상단 navbar start -->
         <div id="navbar"></div>
@@ -144,6 +139,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
 
         <!-- 하단 footer start -->
         <div id="footer"></div>
+        <%@ include file="./static/footer.jsp"%>
         <!-- 하단 footer end -->
 
         

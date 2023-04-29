@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<script src="./js/key.js"></script><%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.ssafy.web.dto.MemberDto"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="root" value="${pageContext.request.contextPath }"></c:set>
@@ -10,10 +10,11 @@ MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
 String checked = "";
 String saveId = "";
 Cookie[] cookies = request.getCookies();
+
 if (cookies != null) {
 	for (Cookie cookie : cookies) {
 		if ("ssafy_id".equals(cookie.getName())) {
-	checked = " checked";
+	checked = "checked";
 	saveId = cookie.getValue();
 	break;
 		}
@@ -23,7 +24,7 @@ if (cookies != null) {
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light h-100 p-4">
 	<div class="container">
-		<a class="navbar-brand text-primary fw-bold" href="./index.jsp">
+		<a class="navbar-brand text-primary fw-bold" href="${root}/">
 			<h1>Enjoy Trip</h1>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -34,17 +35,17 @@ if (cookies != null) {
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-lg-0">
-				<li class="nav-item"><a class="nav-link" href="attraction.html"><i
+				<li class="nav-item"><a class="nav-link" href="${root}/attraction"><i
 						class="fa-solid fa-map-location-dot"></i> 지역별여행지</a></li>
-				<li class="nav-item"><a class="nav-link" href="plan.html"><i
+				<li class="nav-item"><a class="nav-link" href="${root}/plan"><i
 						class="fa-regular fa-calendar"></i> 나의여행계획</a></li>
-				<li class="nav-item"><a class="nav-link" href="hotplace.html"><i
+				<li class="nav-item"><a class="nav-link" href="${root}/hotplace"><i
 						class="fa-solid fa-camera"></i> 핫플자랑하기</a></li>
 				<li class="nav-item"><a class="nav-link" aria-current="page"
 					href="${root}/board"><i
 						class="fa-solid fa-list"></i> 여행정보공유</a></li>
 				<li class="nav-item"><a class="nav-link" aria-current="page"
-					href="notice.html"><i class="fa-solid fa-list"></i> 공지사항</a></li>
+					href="${root}/notice"><i class="fa-solid fa-list"></i> 공지사항</a></li>
 			</ul>
 
 			<%
@@ -84,7 +85,7 @@ if (cookies != null) {
 						마이페이지</a>
 				</div>
 				<div>
-					<a href="<%=root%>/user?action=logout"
+					<a href="<%=root%>/user/logout"
 						class="logout dropdown-item ms-2" id="btn-logout"><i
 						class="fa-solid fa-right-to-bracket" id="btn-logout"
 						style="margin-left: 10px;"></i> 로그아웃</a>
@@ -123,14 +124,14 @@ if (cookies != null) {
 							<div class="col-3">이름</div>
 							<div class="col">
 								<input type="text" placeholder="이름" class="form-control"
-									id="username" name="username">
+									id="username" name="userName">
 							</div>
 						</div>
 						<div class="row mb-1 text-center">
 							<div class="col-3">아이디</div>
 							<div class="col">
 								<input type="text" placeholder="아이디" class="form-control"
-									id="userid" name="userid">
+									id="userid" name="userId">
 							</div>
 						</div>
 						<!---->
@@ -138,7 +139,7 @@ if (cookies != null) {
 							<div class="col-3">비밀번호</div>
 							<div class="col">
 								<input type="password" placeholder="비밀번호" class="form-control"
-									id="userpwd" name="userpwd">
+									id="userpwd" name="userPwd">
 							</div>
 						</div>
 						<div class="row mb-1 text-center">
@@ -152,7 +153,7 @@ if (cookies != null) {
 							<div class="col-3">이메일</div>
 							<div class="col-3">
 								<input type="text" placeholder="이메일" class="form-control"
-									id="emailid" name="emailid">
+									id="emailid" name="emailId">
 							</div>
 							<div class="col-1">
 								<span class="input-group-text">@</span>
@@ -160,7 +161,7 @@ if (cookies != null) {
 							<div class="col">
 								<select class="form-select form-select-md mb-3"
 									aria-label=".form-select-md example" id="emaildomain"
-									name="emaildomain">
+									name="emailDomain">
 									<option value="">도메인 선택</option>
 									<option value="ssafy.com">SSAFY</option>
 									<option value="google.com">GOOGLE</option>
@@ -204,14 +205,14 @@ if (cookies != null) {
 							<div class="col-3">아이디</div>
 							<div class="col">
 								<input id="userid_login" type="text" placeholder="아이디"
-									class="form-control" name="userid">
+									class="form-control" name="userId">
 							</div>
 						</div>
 						<div class="row mb-1 text-center">
 							<div class="col-3">비밀번호</div>
 							<div class="col">
 								<input id="userpwd_login" type="password" placeholder="비밀번호"
-									class="form-control" name="userpwd">
+									class="form-control" name="userPwd">
 							</div>
 						</div>
 					</div>
@@ -252,14 +253,14 @@ if (cookies != null) {
 						<div class="row mb-1 text-center">
 							<div class="col-3">아이디 수정</div>
 							<div class="col">
-								<input id="userid-update" name="userid" type="text" placeholder="너굴맨"
+								<input id="userid-update" name="userId" type="text" placeholder="너굴맨"
 								class="form-control" readonly>
 							</div>
 						</div>
 						<div class="row mb-1 text-center">
 							<div class="col-3">비밀번호 수정</div>
 							<div class="col">
-								<input id=userpwd-update name="userpwd" type="password"
+								<input id=userpwd-update name="userPwd" type="password"
 									placeholder="비밀번호" class="form-control">
 							</div>
 						</div>

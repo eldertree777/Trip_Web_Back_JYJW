@@ -1,5 +1,8 @@
 package com.ssafy.web.config;
 
-public class Config {
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
+public class Config {
+   
 }
