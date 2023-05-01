@@ -17,7 +17,7 @@ import com.ssafy.web.dto.BoardDto;
 import com.ssafy.web.dto.MemberDto;
 
 @SpringBootTest
-public class MybatisTest {
+public class MybatisTest1 {
 
 	@Autowired//참조하는 Bean Container에서 일치하는 자료형이 있다면 '주입실행'!!
 	private SqlSessionFactory sqlFactory;
@@ -58,16 +58,42 @@ public class MybatisTest {
 		Map<String, String> memberMap = new HashMap<>();
 		//map.put("col", "num");
 		//map.put("num", "111");
+		MemberDto mDto = new MemberDto();
+		MemberDto mDto2 = new MemberDto();
+		mDto.setUserId("headmeat");
+		mDto.setEmailId("headmeat");
+		mDto.setEmailDomain("ssafy");
+		mDto.setJoinDate("2019-11-02 18:13:55");
+		mDto.setUserName("Choi");
+		mDto.setUserPwd("1234");
+		
+		mDto2.setEmailDomain("naver.com");
+		mDto2.setEmailId("eldertree777");
+		mDto2.setJoinDate("2018-10-02 18:14:44");
+		mDto2.setUserId("eldertree777");
+		mDto2.setUserName("Hwang");
+		mDto2.setUserPwd("5678");
+		int cnt = session.insert(ns + "memberInsert", mDto);
+		cnt += session.insert(ns + "memberInsert", mDto2);
+		System.out.println("2명 중 " + cnt + "명 입력 성공");
+		
 		BoardDto dto = new BoardDto();
-		dto.setArticleNo(4);
+		BoardDto dto2 = new BoardDto();
 		dto.setContent("o");
 		dto.setHit(0);
-		dto.setRegisterTime("2023-05-01 10:36:22");
-		dto.setSubject("1");
-		dto.setUserId("admin");
+		dto.setSubject("subject1");
+		dto.setUserId("eldertree777");
 		
-		int cnt = session.selectOne(ns + "selectBoardCount");
-		System.out.println("selectBoardCount: " + cnt + "개");
+		dto2.setContent("x");
+		dto2.setHit(0);
+		dto2.setSubject("subject2");
+		dto2.setUserId("headmeat");
+		cnt = session.insert(ns + "boardInsert", dto);
+		cnt += session.insert(ns + "boardInsert", dto2);
+		System.out.println("2개 중 " + cnt + "개 삽입 성공");
+		
+		cnt = session.selectOne(ns + "selectBoardCount");
+		System.out.println("selectBoardCount: " + cnt + "개 존재");
 		System.out.println();
 		
 		map.clear();
@@ -83,23 +109,12 @@ public class MybatisTest {
 		System.out.println();
 		
 		map.clear();
-		dto = session.selectOne(ns + "selectBoardOne", 3);
+		int boardId = session.selectOne(ns + "selectRowId");
+		dto = session.selectOne(ns + "selectBoardOne", boardId);
 		System.out.println("selectBoardOne: " + dto);
 		System.out.println();
 		
-		map.clear();
-		dto = new BoardDto();
-		//int max_id = session.selectOne(ns + "selectRowId");
-		//dto.setArticleNo(max_id + 1);
-		dto.setContent("q");
-		dto.setHit(0);
-		dto.setRegisterTime("1999-02-20 14:15:08");
-		dto.setSubject("2");
-		dto.setUserId("ssafy");
-		cnt = session.insert(ns + "boardInsert", dto);
-		System.out.println(cnt + "개 삽입");
-		System.out.println();
-		
+		//수정
 		map.clear();
 		dto.setContent("headmeat");
 		cnt = session.update(ns + "boardUpdate", dto);
@@ -107,11 +122,11 @@ public class MybatisTest {
 		System.out.println();
 		
 		map.clear();
-		int tmp = 5;
-		dto = session.selectOne(ns + "selectBoardOne", tmp);
+		boardId = session.selectOne(ns + "selectRowId");
+		dto = session.selectOne(ns + "selectBoardOne", boardId);
 		System.out.println("업데이트 전 조회수: " + dto.getHit());
-		cnt = session.update(ns + "updateHit", tmp);
-		dto = session.selectOne(ns + "selectBoardOne", tmp);
+		cnt = session.update(ns + "updateHit", boardId);
+		dto = session.selectOne(ns + "selectBoardOne", boardId);
 		System.out.println("업데이트 후 조회수: " + dto.getHit());
 		System.out.println();
 		
@@ -135,17 +150,13 @@ public class MybatisTest {
 		memberDto.setEmailDomain("ssafy");
 		String iwantnewId = "icebreakers";
 		
-		//cnt = session.insert(ns + "memberInsert", memberDto);
-		System.out.println("멤버 삽입 성공: " + cnt);
-		System.out.println();
-		
 		memberMap.put("userId", iwantnewId);
-		memberMap.put("userPwd", memberDto.getUserPwd());
-		memberMap.put("userName", memberDto.getUserName());
-		memberMap.put("emailId", memberDto.getEmailId());
-		memberMap.put("emailDomain", memberDto.getEmailDomain());
-		memberMap.put("joinDate", memberDto.getJoinDate());
-		memberMap.put("originalId", memberDto.getUserId());
+		memberMap.put("userPwd", mDto.getUserPwd());
+		memberMap.put("userName", mDto.getUserName());
+		memberMap.put("emailId", mDto.getEmailId());
+		memberMap.put("emailDomain", mDto.getEmailDomain());
+		memberMap.put("joinDate", mDto.getJoinDate());
+		memberMap.put("originalId", mDto.getUserId());
 		cnt = session.update(ns + "memberUpdate", memberMap);
 		System.out.println("업데이트 " + ((cnt > 0)?"성공":"실패"));
 	}
