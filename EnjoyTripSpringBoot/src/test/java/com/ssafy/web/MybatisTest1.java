@@ -1,6 +1,5 @@
 package com.ssafy.web;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -159,5 +158,11 @@ public class MybatisTest1 {
 		memberMap.put("originalId", mDto.getUserId());
 		cnt = session.update(ns + "memberUpdate", memberMap);
 		System.out.println("업데이트 " + ((cnt > 0)?"성공":"실패"));
+		
+		Map<String, String> memMap = new HashMap<>();
+		memMap.put("userId", "eldertree777");
+		memMap.put("userPwd", "1234");
+		MemberDto mem = session.selectOne(ns + "loginMember", memMap);
+		System.out.println(mem);
 	}
 }
