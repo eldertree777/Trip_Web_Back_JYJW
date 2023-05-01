@@ -29,7 +29,7 @@ public class BoardController {
 		mv.setViewName("attraction");
 		
 		return mv;
-	}
+	} 
 	@GetMapping("/plan")
 	public ModelAndView plan(ModelAndView mv) {
 		System.out.println("plan");
