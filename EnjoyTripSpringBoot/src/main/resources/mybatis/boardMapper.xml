@@ -92,7 +92,7 @@
 		select * from members where user_id = #{user_id}
 	</select>
 	<select id="loginMember" parameterType="string" resultMap="memberMap">
-		select user_id, user_name, user_password from members where user_id = #{userId}
+		select * from members where user_id = #{userId} and user_password = #{user_password}
 	</select>
 	<select id="selectMemberCount" resultType = "int">
 		select count(*) from members;
