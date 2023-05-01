@@ -89,7 +89,7 @@ public class MybatisTest {
 		
 		map.clear();
 		dto = new BoardDto();
-		int max_id = session.selectOne(ns + "selectRowId");
+		//int max_id = session.selectOne(ns + "selectRowId");
 		//dto.setArticleNo(max_id + 1);
 		dto.setContent("q");
 		dto.setHit(0);
@@ -117,8 +117,9 @@ public class MybatisTest {
 		
 		map.clear();
 		List<Integer> deleteList = new ArrayList<>();
-		int deleteId = session.
-		deleteList.add();
+		
+		int deleteId = session.selectOne(ns + "selectRowId");
+		deleteList.add(deleteId);
 		
 		System.out.println();
 		cnt = session.delete(ns + "boardDelete", deleteList);
