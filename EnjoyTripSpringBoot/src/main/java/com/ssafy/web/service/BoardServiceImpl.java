@@ -4,28 +4,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.ssafy.web.dto.BoardDto;
 import com.ssafy.web.repository.BoardRepository;
 import com.ssafy.web.repository.BoardRepositoryImpl;
 import com.ssafy.web.util.PageNavigation;
 import com.ssafy.web.util.SizeConstant;
 
+@Service("BoardServiceImpl")
 public class BoardServiceImpl implements BoardService {
-	
-	private static BoardService boardService = new BoardServiceImpl();
-	private BoardRepository boardDao;
-	
-	private BoardServiceImpl() {
-		boardDao = BoardRepositoryImpl.getBoardDao();
-	}
-
-	public static BoardService getBoardService() {
-		return boardService;
-	}
+	@Autowired
+	@Qualifier("BoardRepositoryImpl")
+	BoardRepository repo;
 
 	@Override
-	public void writeArticle(BoardDto boardDto) throws Exception {
-		boardDao.writeArticle(boardDto);
+	public int writeArticle(BoardDto boardDto) throws Exception {
+		return repo.writeArticle(boardDto);
 	}
 
 	@Override
@@ -40,7 +37,7 @@ public class BoardServiceImpl implements BoardService {
 		int start = pgno * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
 		param.put("start", start);
 		param.put("listsize", SizeConstant.LIST_SIZE);
-		return boardDao.listArticle(param);
+		return repo.listArticle(param);
 	}
 	
 	@Override
@@ -59,7 +56,7 @@ public class BoardServiceImpl implements BoardService {
 //			key = "user_id";
 		param.put("key", key.isEmpty() ? "" : key);
 		param.put("word", map.get("word").isEmpty() ? "" : map.get("word"));
-		int totalCount = boardDao.getTotalArticleCount(param);
+		int totalCount = repo.getTotalArticleCount(param);
 		pageNavigation.setTotalCount(totalCount);
 		int totalPageCount = (totalCount - 1) / sizePerPage + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
@@ -74,24 +71,24 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDto getArticle(int articleNo) throws Exception {
-		return boardDao.getArticle(articleNo);
+		return repo.getArticle(articleNo);
 	}
 
 	@Override
 	public void updateHit(int articleNo) throws Exception {
-		boardDao.updateHit(articleNo);
+		repo.updateHit(articleNo);
 	}
 
 	@Override
-	public void modifyArticle(BoardDto boardDto) throws Exception {
+	public int modifyArticle(BoardDto boardDto) throws Exception {
 		// TODO : BoardDaoImpl의 modifyArticle 호출
-		boardDao.modifyArticle(boardDto);
+		return repo.modifyArticle(boardDto);
 	}
 
 	@Override
-	public void deleteArticle(int articleNo) throws Exception {
+	public int deleteArticle(List<String> articles) throws Exception {
 		// TODO : BoardDaoImpl의 deleteArticle 호출
-		boardDao.deleteArticle(articleNo);
+		return repo.deleteArticle(articles);
 	}
 
 }

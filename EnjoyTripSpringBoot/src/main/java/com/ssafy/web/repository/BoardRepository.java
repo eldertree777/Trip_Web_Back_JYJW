@@ -8,14 +8,14 @@ import com.ssafy.web.dto.BoardDto;
 
 public interface BoardRepository {
 
-	void writeArticle(BoardDto boardDto) throws SQLException;
+	int writeArticle(BoardDto boardDto) throws SQLException;
 	List<BoardDto> listArticle(Map<String, Object> param) throws SQLException;
 	int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 	BoardDto getArticle(int articleNo) throws SQLException;
 	void updateHit(int articleNo) throws SQLException;
 	
-	void modifyArticle(BoardDto boardDto) throws SQLException;
-	void deleteArticle(int articleNo) throws SQLException;
+	int modifyArticle(BoardDto boardDto) throws SQLException;
+	int deleteArticle(List<String> articles) throws SQLException;
 	
 }
 

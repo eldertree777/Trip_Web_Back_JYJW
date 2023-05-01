@@ -7,14 +7,11 @@ import com.ssafy.web.dto.BoardDto;
 import com.ssafy.web.util.PageNavigation;
 
 public interface BoardService {
-
-	void writeArticle(BoardDto boardDto) throws Exception;
+	int writeArticle(BoardDto boardDto) throws Exception;
 	List<BoardDto> listArticle(Map<String, String> map) throws Exception;
 	PageNavigation makePageNavigation(Map<String, String> map) throws Exception;
 	BoardDto getArticle(int articleNo) throws Exception;
 	void updateHit(int articleNo) throws Exception;
-	
-	void modifyArticle(BoardDto boardDto) throws Exception;
-	void deleteArticle(int articleNo) throws Exception;
-	
+	int modifyArticle(BoardDto boardDto) throws Exception;
+	int deleteArticle(List<String> articles) throws Exception;	
 }
