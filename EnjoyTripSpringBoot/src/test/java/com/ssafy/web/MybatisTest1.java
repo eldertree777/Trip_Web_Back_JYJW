@@ -90,10 +90,10 @@ public class MybatisTest {
 		map.clear();
 		dto = new BoardDto();
 		int max_id = session.selectOne(ns + "selectRowId");
-		dto.setArticleNo(max_id + 1);
+		//dto.setArticleNo(max_id + 1);
 		dto.setContent("q");
 		dto.setHit(0);
-		dto.setRegisterTime("2024-02-20 14:15:08");
+		dto.setRegisterTime("1999-02-20 14:15:08");
 		dto.setSubject("2");
 		dto.setUserId("ssafy");
 		cnt = session.insert(ns + "boardInsert", dto);
@@ -126,13 +126,13 @@ public class MybatisTest {
 		
 		map.clear();
 		MemberDto memberDto = new MemberDto();
-		memberDto.setUserId("icebreakers");
+		memberDto.setUserId("headmeat");
 		memberDto.setUserPwd("1234");
 		memberDto.setUserName("최재용");
 		memberDto.setEmailId("headmeat@ssafy.com");
 		memberDto.setJoinDate("2022-10-01 15:03:01");
 		memberDto.setEmailDomain("ssafy");
-		String iwantnewId = "headmeat";
+		String iwantnewId = "icebreakers";
 		
 		//cnt = session.insert(ns + "memberInsert", memberDto);
 		System.out.println("멤버 삽입 성공: " + cnt);

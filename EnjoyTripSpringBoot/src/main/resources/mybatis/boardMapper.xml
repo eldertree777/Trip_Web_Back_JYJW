@@ -64,8 +64,8 @@
 		select max(article_no) from board;
 	</select>
 	<insert id="boardInsert" parameterType="boardDto">
-		insert into board (article_no, user_id, subject, content, hit, register_time)
-		values(#{articleNo},#{userId},#{subject},#{content},#{hit},#{registerTime})
+		insert into board (user_id, subject, content, hit)
+		values(#{userId},#{subject},#{content},#{hit})
 	</insert>
 	<update id = "boardUpdate" parameterType="boardDto">
 		<!-- update board set article_no = #{article_no}, user_id = #{user_id}, subject = #{subject}, content = #{content}, hit = #{hit}, register_time = #{register_time} -->
