@@ -433,8 +433,10 @@
       document.querySelector("#btn-logout").addEventListener("click", function () {
       	location.href = "<%=root%>/user/logout";});
       
-      document.querySelector("#userid-update").placeholder="<%=memberDto.getUserId()%>"; 
+      document.querySelector("#userid-update").value="<%=memberDto.getUserId()%>"; 
       
+      
+      <%-- 
       document.querySelector("#btn-update").addEventListener("click", function () {
     	  	if (!document.querySelector("#userpwd-update").value) {
               alert("수정 안할꺼야? 제대 입력!!");
@@ -444,7 +446,8 @@
               form.setAttribute("action", "<%=root%>/user/update?userId=<%=memberDto.getUserId()%>");
               form.submit();
             }
-        });
+        }); 
+      --%>
       
       document.querySelector("#btn-delete").addEventListener("click", function () {
     	  location.href = "<%=root%>/user/delete?userId=<%=memberDto.getUserId()%>";

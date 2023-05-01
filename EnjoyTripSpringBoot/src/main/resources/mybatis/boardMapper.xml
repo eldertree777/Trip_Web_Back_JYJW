@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssafy.web.repository">
+<mapper namespace="com.ssafy.web.repository.BoardRepository">
 	<!-- DTO & Map Instance Declaration -->
 	<!-- Board Type -->
 	<resultMap id="boardMap" type="boardDto">
@@ -28,7 +28,7 @@
 	<!-- <select id="selectBoardList" parameterType="java.util.Map" resultMap="boardResultMap"> -->
 	  <!-- select article_no, user_id, subject, content, hit, register_time -->
 	  select * from board
-	  <where>
+<!--  	  <where>
 	    <if test="key != null and word != null">
 	      <choose>
 	        <when test="key == 'subject'">
@@ -39,14 +39,14 @@
 	        </otherwise>
 	      </choose>
 	    </if>
-	  </where>
-	  <!-- int type을 넘겨줘야 하므로 map은 Map<String, Integer> 타입 -->
-	  order by article_no desc limit #{start}, #{listsize}
+	  </where> 
+	  int type을 넘겨줘야 하므로 map은 Map<String, Integer> 타입
+	  order by article_no desc limit #{start}, #{listsize} -->
 	</select>
 	<select id="selectBoardCount" resultType="int" parameterType="java.util.Map">
 	  select count(article_no)
 	  from board
-	  <where>
+<!-- 	  <where>
 	    <if test="key != null and word != null">
 	      <if test="key == 'subject'">
 	        and subject like concat('%', #{word}, '%')
@@ -55,7 +55,7 @@
 	        and ${key} = #{word}
 	      </if>
 	    </if>
-	  </where>
+	  </where> -->
 	</select>
 	<select id="selectBoardOne" parameterType="int" resultMap="boardMap">
 		select * from board where article_no = #{articleNo}

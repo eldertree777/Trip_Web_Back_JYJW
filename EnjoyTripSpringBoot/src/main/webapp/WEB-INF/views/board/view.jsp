@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
-<%@ include file="/common/header.jsp" %>
+<%@ include file="../common/header.jsp" %>
 	<c:if test="${article eq null}">
 		<script>
 		alert("글이 삭제되었거나 부적절한 URL 접근입니다.");
-		location.href = "${root}/article?action=list";
+		location.href = "${root}/board";
 		</script>
 	</c:if>
-      <%@ include file="/common/confirm.jsp" %>
+      <%@ include file="../common/confirm.jsp" %>
       <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12">
           <h2 class="my-3 py-3 shadow-sm bg-light text-center">
@@ -56,15 +56,15 @@
     </div>
     <script>
       document.querySelector("#btn-list").addEventListener("click", function () {
-        location.href = "${root}/article?action=board";
+        location.href = "${root}/board";
       });
       document.querySelector("#btn-mv-modify").addEventListener("click", function () {
-        alert("글수정하자!!!");
-        location.href = "${root}/article?action=mvmodify&articleno=${article.articleNo}";
+        //alert("글수정하자!!!");
+        location.href = "${root}/info/info_modify?articleno=${article.articleNo}";
       });
       document.querySelector("#btn-delete").addEventListener("click", function () {
-        alert("글삭제하자!!!");
-        location.href = "${root}/article?action=delete&articleno=${article.articleNo}";
+        //alert("글삭제하자!!!");
+        location.href = "${root}/info/info_delete?articleno=${article.articleNo}";
       });
     </script>
-<%@ include file="/common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>

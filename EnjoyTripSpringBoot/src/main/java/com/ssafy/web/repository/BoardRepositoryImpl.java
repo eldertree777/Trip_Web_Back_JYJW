@@ -31,8 +31,9 @@ public class BoardRepositoryImpl implements BoardRepository {
 	@Override
 	public List<BoardDto> listArticle(Map<String, Object> param) throws SQLException {
 		List<BoardDto> list = new ArrayList<>();
-
-		return session.selectList(ns + "selectBoardList", param);
+		
+//		return session.selectList(ns + "selectBoardList", param);
+		return session.selectList(ns + "selectBoardList");
 	}
 	
 	@Override

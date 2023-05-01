@@ -1,5 +1,6 @@
 package com.ssafy.web.service;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.web.dto.BoardDto;
 import com.ssafy.web.repository.BoardRepository;
-import com.ssafy.web.repository.BoardRepositoryImpl;
 import com.ssafy.web.util.PageNavigation;
 import com.ssafy.web.util.SizeConstant;
 
@@ -21,12 +21,12 @@ public class BoardServiceImpl implements BoardService {
 	BoardRepository repo;
 
 	@Override
-	public int writeArticle(BoardDto boardDto) throws Exception {
+	public int writeArticle(BoardDto boardDto) throws SQLException {
 		return repo.writeArticle(boardDto);
 	}
 
 	@Override
-	public List<BoardDto> listArticle(Map<String, String> map) throws Exception {
+	public List<BoardDto> listArticle(Map<String, String> map) throws SQLException {
 		Map<String, Object> param = new HashMap<String, Object>();
 		String key = map.get("key");
 //		if("userid".equals(key))
@@ -37,11 +37,12 @@ public class BoardServiceImpl implements BoardService {
 		int start = pgno * SizeConstant.LIST_SIZE - SizeConstant.LIST_SIZE;
 		param.put("start", start);
 		param.put("listsize", SizeConstant.LIST_SIZE);
+		
 		return repo.listArticle(param);
 	}
 	
 	@Override
-	public PageNavigation makePageNavigation(Map<String, String> map) throws Exception {
+	public PageNavigation makePageNavigation(Map<String, String> map) throws SQLException {
 		PageNavigation pageNavigation = new PageNavigation();
 
 		int naviSize = SizeConstant.NAVIGATION_SIZE;
@@ -70,23 +71,23 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public BoardDto getArticle(int articleNo) throws Exception {
+	public BoardDto getArticle(int articleNo) throws SQLException {
 		return repo.getArticle(articleNo);
 	}
 
 	@Override
-	public void updateHit(int articleNo) throws Exception {
+	public void updateHit(int articleNo) throws SQLException {
 		repo.updateHit(articleNo);
 	}
 
 	@Override
-	public int modifyArticle(BoardDto boardDto) throws Exception {
+	public int modifyArticle(BoardDto boardDto) throws SQLException {
 		// TODO : BoardDaoImpl의 modifyArticle 호출
 		return repo.modifyArticle(boardDto);
 	}
 
 	@Override
-	public int deleteArticle(List<String> articles) throws Exception {
+	public int deleteArticle(List<String> articles) throws SQLException {
 		// TODO : BoardDaoImpl의 deleteArticle 호출
 		return repo.deleteArticle(articles);
 	}

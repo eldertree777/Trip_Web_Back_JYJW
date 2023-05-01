@@ -237,17 +237,15 @@ if (cookies != null) {
 	aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form id="form-update" method="POST">
+			<form id="form-update" method="POST" action="<%=root%>/user/update">
 				<!-- Modal Header -->
-				<input type="hidden" name="action" value="update">
+				<%-- <input type="hidden" name="action" value="<%=root%>/user/update"> --%>
 				<header class="modal-header">
-
 					<h5 class="modal-title">마이페이지</h5>
 					<button type="button" aria-label="Close" class="btn-close"
 						data-bs-dismiss="modal"></button>
-
-
 				</header>
+				
 				<div id="login-modal___BV_modal_body_" class="modal-body">
 					<div class="container-fluid">
 						<div class="row mb-1 text-center">

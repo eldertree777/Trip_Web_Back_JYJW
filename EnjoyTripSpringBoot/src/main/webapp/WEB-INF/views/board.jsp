@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 import="java.util.List,com.ssafy.web.dto.BoardDto"%>
 <%
-List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
+List<BoardDto> list = (List<BoardDto>) request.getAttribute("InfoBoard");
 %>
     <!DOCTYPE html>
     <html lang="en">
@@ -36,7 +36,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
                             <div class="mt-4 container-fluid">
                                 <div class="row mb-2 justify-content-between">
                                     <div class="mr-auto ml-2 col-auto">
-			                            <button type="button" class="btn btn-outline-primary mb-3" onclick="location.href='<%= root %>/article?action=mvwrite'">
+			                            <button type="button" class="btn btn-outline-primary mb-3" onclick="location.href='<%= root %>/info/info_write'">
 					                	글작성
 					              		</button>
                                     </div>
@@ -79,7 +79,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
                                             </thead>
                                             <!-- tmp -->
                                             <tbody>    
-                                             <c:if test="${not empty list}">
+                                             
 	                                            <%
 												for(BoardDto boardDto : list) {
 												%>           
@@ -102,7 +102,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
 												<%
 												}
 												%>  
-											 </c:if>
+											 
 								            </tbody>
                                         </table>
                                     </div>
@@ -153,12 +153,12 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
 	      titles.forEach(function (title) {
 	        title.addEventListener("click", function () {
 	          console.log(this.getAttribute("data-no"));
-	          location.href = "<%= root %>/article?action=view&articleno=" + this.getAttribute("data-no");
+	          location.href = "<%= root %>/info/view?articleno=" + this.getAttribute("data-no");
 	        });
 	      });
 	
 	      document.querySelector("#btn-mv-register").addEventListener("click", function () {
-	        location.href = "<%= root %>/article?action=mvwrite";
+	        location.href = "<%= root %>/info/info_write";
 	      });
    		</script>
     </body>
