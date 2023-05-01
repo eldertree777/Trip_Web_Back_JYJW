@@ -139,30 +139,36 @@ public class MybatisTest1 {
 		cnt = session.delete(ns + "boardDelete", deleteList);
 		System.out.println(cnt + "개 삭제 완료");
 		
-		map.clear();
-		MemberDto memberDto = new MemberDto();
-		memberDto.setUserId("headmeat");
-		memberDto.setUserPwd("1234");
-		memberDto.setUserName("최재용");
-		memberDto.setEmailId("headmeat@ssafy.com");
-		memberDto.setJoinDate("2022-10-01 15:03:01");
-		memberDto.setEmailDomain("ssafy");
-		String iwantnewId = "icebreakers";
-		
-		memberMap.put("userId", iwantnewId);
-		memberMap.put("userPwd", mDto.getUserPwd());
-		memberMap.put("userName", mDto.getUserName());
-		memberMap.put("emailId", mDto.getEmailId());
-		memberMap.put("emailDomain", mDto.getEmailDomain());
-		memberMap.put("joinDate", mDto.getJoinDate());
-		memberMap.put("originalId", mDto.getUserId());
-		cnt = session.update(ns + "memberUpdate", memberMap);
-		System.out.println("업데이트 " + ((cnt > 0)?"성공":"실패"));
+//		map.clear();
+//		MemberDto memberDto = new MemberDto();
+//		memberDto.setUserId("headmeat");
+//		memberDto.setUserPwd("1234");
+//		memberDto.setUserName("최재용");
+//		memberDto.setEmailId("headmeat@ssafy.com");
+//		memberDto.setJoinDate("2022-10-01 15:03:01");
+//		memberDto.setEmailDomain("ssafy");
+//		String iwantnewId = "icebreakers";
+//		
+//		memberMap.put("userId", iwantnewId);
+//		memberMap.put("userPwd", mDto.getUserPwd());
+//		memberMap.put("userName", mDto.getUserName());
+//		memberMap.put("emailId", mDto.getEmailId());
+//		memberMap.put("emailDomain", mDto.getEmailDomain());
+//		memberMap.put("joinDate", mDto.getJoinDate());
+//		memberMap.put("originalId", mDto.getUserId());
+//		cnt = session.update(ns + "memberUpdate", memberMap);
+//		System.out.println("업데이트 " + ((cnt > 0)?"성공":"실패"));
 		
 		Map<String, String> memMap = new HashMap<>();
 		memMap.put("userId", "eldertree777");
 		memMap.put("userPwd", "1234");
 		MemberDto mem = session.selectOne(ns + "loginMember", memMap);
-		System.out.println(mem);
+		System.out.println("loginMember: " + mem);
+		System.out.println();
+		
+		memMap.put("userPwd", "456789");
+		cnt = session.update(ns + "memberUpdate", memMap);
+		System.out.println("[memberUpdate]");
+		System.out.println(cnt + "명 업데이트 완료");
 	}
 }
