@@ -91,24 +91,22 @@
 	<select id="selectMemberOne" parameterType="string" resultMap="memberMap">
 		select * from members where user_id = #{user_id}
 	</select>
+	<select id="loginMember" parameterType="string" resultMap="memberMap">
+		select user_id, user_name, user_password from members where user_id = #{userId}
+	</select>
 	<select id="selectMemberCount" resultType = "int">
 		select count(*) from members;
 	</select>
 	<insert id="memberInsert" parameterType="memberDto">
-		insert into members (user_id, user_name, user_password, email_id, email_domain, join_date)
+		insert into members (user_id, user_name, user_password, email_id, email_domain)
 		<!-- values(#{userId},#{title},#{content}) -->
-		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain}, #{joinDate})
+		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain})
 	</insert>
 	<update id = "memberUpdate" parameterType="java.util.Map">
 		<!-- update board set no = #{no}, userid = #{userid}, title = #{title}, content = #{content} -->
-		update members set user_id = #{userId}, user_name = #{userName}, user_password = #{userPwd}, email_id = #{emailId}, email_domain = #{emailDomain}, join_date = #{joinDate} where user_id = #{originalId} 
+		update members set user_password = #{userPwd} where user_id = #{userId} 
 	</update>
-	<delete id = "memberDelete" parameterType="java.util.List">
-		delete from members
-		where user_id in
-		<foreach item="item" index = "index" collection = "list"
-			open = "(" separator = "," close = ")">
-			#{item}
-		</foreach>
+	<delete id = "memberDelete" parameterType="string">
+		delete from members where user_id = userId
 	</delete>
 </mapper>
