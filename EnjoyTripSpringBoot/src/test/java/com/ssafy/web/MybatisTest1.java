@@ -117,8 +117,8 @@ public class MybatisTest {
 		
 		map.clear();
 		List<Integer> deleteList = new ArrayList<>();
-		
-		deleteList.add(max_id + 1);
+		int deleteId = session.
+		deleteList.add();
 		
 		System.out.println();
 		cnt = session.delete(ns + "boardDelete", deleteList);
