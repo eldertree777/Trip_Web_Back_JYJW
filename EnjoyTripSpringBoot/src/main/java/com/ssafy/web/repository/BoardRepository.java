@@ -13,7 +13,6 @@ public interface BoardRepository {
 	int getTotalArticleCount(Map<String, Object> param) throws SQLException;
 	BoardDto getArticle(int articleNo) throws SQLException;
 	void updateHit(int articleNo) throws SQLException;
-	
 	int modifyArticle(BoardDto boardDto) throws SQLException;
 	int deleteArticle(List<String> articles) throws SQLException;
 	
