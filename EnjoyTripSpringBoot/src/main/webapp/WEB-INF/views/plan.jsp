@@ -87,7 +87,7 @@
       // index page 로딩 후 전국의 시도 설정.
       let areaUrl =
         "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-        serviceKey +
+        serviceKey_go +
         "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
       // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
@@ -113,40 +113,41 @@
       // 위 데이터를 가지고 공공데이터에 요청.
       // 받은 데이터를 이용하여 화면 구성.
       document.getElementById("btn-search").addEventListener("click", () => {
-        let searchUrl = `https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=${serviceKey}&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A`;
+        let searchUrl = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey="+serviceKey_go+"&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A";
 
         let areaCode = document.getElementById("search-area").value;
         let contentTypeId = document.getElementById("search-content-id").value;
         let keyword = document.getElementById("search-keyword").value;
 
-        if (parseInt(areaCode)) searchUrl += `&areaCode=${areaCode}`;
-        if (parseInt(contentTypeId)) searchUrl += `&contentTypeId=${contentTypeId}`;
+        if (parseInt(areaCode)) searchUrl += "&areaCode="+areaCode;
+        if (parseInt(contentTypeId)) searchUrl += "&contentTypeId="+contentTypeId;
         if (!keyword) {
           alert("검색어 입력 필수!!!");
           return;
-        } else searchUrl += `&keyword=${keyword}`;
-
+        } else searchUrl += "&keyword="+keyword;
+		
+        
+        console.log(searchUrl);
+        
         fetch(searchUrl)
           .then((response) => response.json())
           .then((data) => makeList(data));
       });
-
+      
       var positions; // marker 배열.
       function makeList(data) {
-        document.querySelector("table").setAttribute("style", "display: ;");
+        //document.querySelector("table").setAttribute("style", "display: ;");
         let trips = data.response.body.items.item;
         let tripList = ``;
         positions = [];
         trips.forEach((area) => {
-          tripList += `
-            <tr onclick="moveCenter(${area.mapy}, ${area.mapx});">
-              <td><img src="${area.firstimage}" width="100px"></td>
-              <td>${area.title}</td>
-              <td>${area.addr1} ${area.addr2}</td>
-              <td>${area.mapy}</td>
-              <td>${area.mapx}</td>
-            </tr>
-          `;
+          tripList += "<tr onclick=moveCenter("+area.mapy + "," + area.mapx + ");>" +
+            "<td><img src="+ area.firstimage + " width=100px ></td>" +
+            "<td>" + area.title + "</td>" +
+            "<td>" + area.addr1 +" "+ area.addr2 + "</td>" +
+            "<td>" + area.mapy + "</td>" +
+            "<td>" + area.mapx + "</td>" +
+          "</tr>";
 
           let markerInfo = {
             title: area.title,
@@ -154,7 +155,7 @@
           };
           positions.push(markerInfo);
         });
-        document.getElementById("trip-list").innerHTML = tripList;
+        //document.getElementById("trip-list").innerHTML = tripList;
         displayMarker();
       }
 

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" 
 import="java.util.List,com.ssafy.web.dto.BoardDto"%>
 <%
-String root = request.getContextPath();
 List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
 %>
     <!DOCTYPE html>
@@ -80,7 +79,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
                                             </thead>
                                             <!-- tmp -->
                                             <tbody>    
-                                            
+                                             <c:if test="${not empty list}">
 	                                            <%
 												for(BoardDto boardDto : list) {
 												%>           
@@ -103,6 +102,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
 												<%
 												}
 												%>  
+											 </c:if>
 								            </tbody>
                                         </table>
                                     </div>
@@ -147,7 +147,7 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("articles");
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
             </script>
-        <script src="./../js/main.js"></script>
+        <script src="./js/main.js"></script>
       	<script>
 	      let titles = document.querySelectorAll(".article-title");
 	      titles.forEach(function (title) {

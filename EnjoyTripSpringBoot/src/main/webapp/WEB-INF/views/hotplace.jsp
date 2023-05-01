@@ -126,7 +126,7 @@
       // index page 로딩 후 전국의 시도 설정.
       let areaUrl =
         "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-        serviceKey +
+        serviceKey_go +
         "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
 
       // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
