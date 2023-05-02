@@ -107,29 +107,21 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("InfoBoard");
                                         </table>
                                     </div>
                                 </div>
-                                <div class="mt-2">
-                                    <nav aria-hidden="false" aria-label="Pagination">
-                                        <ul aria-disabled="false"
-                                            class="pagination b-pagination justify-content-center b-pagination-pills">
-                                            <li aria-hidden="true" class="page-item disabled"><span
-                                                    aria-label="Go to first page" aria-disabled="true"
-                                                    class="page-link">«</span></li>
-                                            <li aria-hidden="true" class="page-item disabled"><span
-                                                    aria-label="Go to previous page" aria-disabled="true"
-                                                    class="page-link">‹</span></li><!----><!---->
-                                            <li class="page-item active"><a aria-label="Go to page 1"
-                                                    aria-current="page" href="#1" target="_self" class="page-link">1</a>
-                                            </li>
-                                            <li class="page-item"><a aria-label="Go to page 2" href="#2" target="_self"
-                                                    class="page-link">2</a></li><!----><!---->
-                                            <li class="page-item"><a aria-label="Go to next page" href="#2"
-                                                    target="_self" class="page-link">›</a></li>
-                                            <li class="page-item"><a aria-label="Go to last page" href="#2"
-                                                    target="_self" class="page-link">»</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
+                                 <div class="row">
+          							${navigation.navigator}
+        						</div>
                             </div>
+                            <form id="form-param" method="get" action="">
+						      <input type="hidden" name="pgno" id="pgno" value="${pgno}">
+						      <input type="hidden" name="key" value="${key}">
+						      <input type="hidden" name="word" value="${word}">
+						    </form>
+						    <form id="form-no-param" method="get" action="${root}/article/view">
+						      <input type="hidden" name="pgno" value="${pgno}">
+						      <input type="hidden" name="key" value="${key}">
+						      <input type="hidden" name="word" value="${word}">
+						      <input type="hidden" id="articleno" name="articleno" value="">
+						    </form>
                         </div>
                     </div>
                     <!-- center content end -->
@@ -156,9 +148,24 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("InfoBoard");
 	          location.href = "<%= root %>/info/view?articleno=" + this.getAttribute("data-no");
 	        });
 	      });
-	
-	      document.querySelector("#btn-mv-register").addEventListener("click", function () {
+	      
+	      document.querySelector("#btn-search").addEventListener("click", function () {
+	    	  let form = document.querySelector("#form-search");
+	          form.setAttribute("action", "${root}/board");
+	          form.submit();
+	      });
+	      <%-- document.querySelector("#btn-mv-register").addEventListener("click", function () {
 	        location.href = "<%= root %>/info/info_write";
+	      }); --%>
+	      
+	      let pages = document.querySelectorAll(".page-link");
+	      pages.forEach(function (page) {
+	        page.addEventListener("click", function () {
+	       	  document.querySelector("#pgno").value = this.parentNode.getAttribute("data-pg");
+	          let form = document.querySelector("#form-param");
+	          form.setAttribute("action", "${root}/article/list");
+	          form.submit();
+	        });
 	      });
    		</script>
     </body>

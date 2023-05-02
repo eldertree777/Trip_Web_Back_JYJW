@@ -20,7 +20,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 	@Autowired
 	SqlSession session;
 	
-	String ns = "com.ssafy.web.repository.";
+	String ns = "com.ssafy.web.repository.BoardRepository.";
 //	private static MemberRepository memberDao = new MemberRepositoryImpl();
 //	private DBUtil dbUtil;
 

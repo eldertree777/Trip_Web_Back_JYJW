@@ -32,8 +32,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 	public List<BoardDto> listArticle(Map<String, Object> param) throws SQLException {
 		List<BoardDto> list = new ArrayList<>();
 		
-//		return session.selectList(ns + "selectBoardList", param);
-		return session.selectList(ns + "selectBoardList");
+		return session.selectList(ns + "selectBoardList", param);
+//		return session.selectList(ns + "selectBoardList");
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class BoardRepositoryImpl implements BoardRepository {
 	}
 
 	@Override
-	public int deleteArticle(List<String> articles) throws SQLException {
-		return session.delete(ns + "boardDelete", articles);
+	public int deleteArticle(int articleNo) throws SQLException {
+		return session.delete(ns + "boardDelete", articleNo);
 	}
 }

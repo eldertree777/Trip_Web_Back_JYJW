@@ -58,6 +58,7 @@ public class BoardServiceImpl implements BoardService {
 		param.put("key", key.isEmpty() ? "" : key);
 		param.put("word", map.get("word").isEmpty() ? "" : map.get("word"));
 		int totalCount = repo.getTotalArticleCount(param);
+		System.out.println(totalCount);
 		pageNavigation.setTotalCount(totalCount);
 		int totalPageCount = (totalCount - 1) / sizePerPage + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
@@ -66,7 +67,9 @@ public class BoardServiceImpl implements BoardService {
 		boolean endRange = (totalPageCount - 1) / naviSize * naviSize < currentPage;
 		pageNavigation.setEndRange(endRange);
 		pageNavigation.makeNavigator();
-
+		
+		System.out.println(pageNavigation);
+		
 		return pageNavigation;
 	}
 
@@ -87,9 +90,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int deleteArticle(List<String> articles) throws SQLException {
+	public int deleteArticle(int articleNo) throws SQLException {
 		// TODO : BoardDaoImpl의 deleteArticle 호출
-		return repo.deleteArticle(articles);
+		return repo.deleteArticle(articleNo);
 	}
 
 }

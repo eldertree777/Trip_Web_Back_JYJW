@@ -107,4 +107,13 @@ public class PageNavigation {
 		this.navigator = builder.toString();
 	}
 
+	@Override
+	public String toString() {
+		return "PageNavigation [startRange=" + startRange + ", endRange=" + endRange + ", totalCount=" + totalCount
+				+ ", newCount=" + newCount + ", totalPageCount=" + totalPageCount + ", currentPage=" + currentPage
+				+ ", naviSize=" + naviSize + ", countPerPage=" + countPerPage + ", navigator=" + navigator + "]";
+	}
+	
+	
+
 }

@@ -89,7 +89,7 @@ public class InfoBoardController {
 	@GetMapping("/info_delete")
 	public ModelAndView info_delete(ModelAndView mv, String articleno) throws SQLException {
 		List<String> nos = new ArrayList();
-		boardService.deleteArticle(nos);
+		boardService.deleteArticle(Integer.parseInt(articleno));
 		mv.setViewName("redirect:/board");
 		
 		return mv;
