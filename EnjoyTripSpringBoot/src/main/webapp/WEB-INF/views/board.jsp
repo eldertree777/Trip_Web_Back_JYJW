@@ -149,11 +149,12 @@ List<BoardDto> list = (List<BoardDto>) request.getAttribute("InfoBoard");
 	        });
 	      });
 	      
-	      document.querySelector("#btn-search").addEventListener("click", function () {
+	      /* document.querySelector("#btn-search").addEventListener("click", function () {
 	    	  let form = document.querySelector("#form-search");
 	          form.setAttribute("action", "${root}/board");
 	          form.submit();
-	      });
+	      }); */
+	      
 	      <%-- document.querySelector("#btn-mv-register").addEventListener("click", function () {
 	        location.href = "<%= root %>/info/info_write";
 	      }); --%>

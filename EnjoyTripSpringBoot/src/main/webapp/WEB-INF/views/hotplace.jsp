@@ -135,6 +135,7 @@
         .then((data) => makeOption(data));
 
       function makeOption(data) {
+    	console.log(areaUrl);
         let areas = data.response.body.items.item;
         // console.log(areas);
         let sel = document.getElementById("search-area");
