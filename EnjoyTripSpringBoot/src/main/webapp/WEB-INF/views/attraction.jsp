@@ -104,24 +104,28 @@
     ></script>
     <script>
       // index page 로딩 후 전국의 시도 설정.
-      let areaUrl =
+/*       let areaUrl =
         "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
         serviceKey_go +
-        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json"; */
+        let areaUrl ="${root}/api/sido";
 
       // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
       fetch(areaUrl, { method: "GET" })
+      	.then(console.log(areaUrl))
         .then((response) => response.json())
         .then((data) => makeOption(data));
 
       function makeOption(data) {
-        let areas = data.response.body.items.item;
+//        let areas = data.response.body.items.item;
+        let areas = data;
+        console.log(data);
         // console.log(areas);
         let sel = document.getElementById("search-area");
         areas.forEach((area) => {
           let opt = document.createElement("option");
-          opt.setAttribute("value", area.code);
-          opt.appendChild(document.createTextNode(area.name));
+          opt.setAttribute("value", area.sido_code);
+          opt.appendChild(document.createTextNode(area.sido_name));
 
           sel.appendChild(opt);
         });

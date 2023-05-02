@@ -124,10 +124,11 @@
       });
 
       // index page 로딩 후 전국의 시도 설정.
-      let areaUrl =
+ /*      let areaUrl =
         "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
         serviceKey_go +
-        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
+        "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json"; */
+        let areaUrl ="${root}/api/sido";
 
       // fetch(areaUrl, { method: "GET" }).then(function (response) { return response.json() }).then(function (data) { makeOption(data); });
       fetch(areaUrl, { method: "GET" })

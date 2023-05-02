@@ -19,6 +19,7 @@ public class RestAttraction {
 	
 	@GetMapping("/sido")
 	public List<SidoDto> getsido(){
+		System.out.println("sido");
 		return sidoService.getAllSido();
 	}
 }
