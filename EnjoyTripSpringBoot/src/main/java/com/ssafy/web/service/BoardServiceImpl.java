@@ -58,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
 		param.put("key", key.isEmpty() ? "" : key);
 		param.put("word", map.get("word").isEmpty() ? "" : map.get("word"));
 		int totalCount = repo.getTotalArticleCount(param);
-		System.out.println(totalCount);
+//		System.out.println(totalCount);
 		pageNavigation.setTotalCount(totalCount);
 		int totalPageCount = (totalCount - 1) / sizePerPage + 1;
 		pageNavigation.setTotalPageCount(totalPageCount);
@@ -68,7 +68,7 @@ public class BoardServiceImpl implements BoardService {
 		pageNavigation.setEndRange(endRange);
 		pageNavigation.makeNavigator();
 		
-		System.out.println(pageNavigation);
+//		System.out.println(pageNavigation);
 		
 		return pageNavigation;
 	}
