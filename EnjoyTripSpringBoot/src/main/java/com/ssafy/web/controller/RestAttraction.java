@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.web.dto.AttractionDto;
@@ -34,9 +36,11 @@ public class RestAttraction {
 		return attractionService.listAttraction();
 	}
 	
-	@GetMapping("listAttractionSearch")
-	public List<AttractionDto> listAttractionSearch() throws SQLException{
-		
-		return null;
+	//areaCode=5&contentTypeId=28&keyword=산
+	@GetMapping("/listAttractionSearch")
+	public List<AttractionDto> listAttractionSearch(@RequestParam int areaCode, @RequestParam("contentTypeId")int contentTypeId, @RequestParam("keyword")String keyword) throws SQLException{
+		System.out.println("listAttractionSearch");
+		System.out.println(areaCode + " " + contentTypeId + " " + keyword);
+		return attractionService.listAttractionSearch(areaCode, contentTypeId, keyword);
 	}
 }

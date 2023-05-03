@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ssafy.web.dto.AttractionDto;
 import com.ssafy.web.repository.AttractionMapper;
@@ -28,11 +29,13 @@ public class AttractionServiceImpl implements AttractionService{
 	}
 
 	@Override
-	public List<AttractionDto> listAttractionSearch(AttractionDto dto) throws SQLException {
+	public List<AttractionDto> listAttractionSearch(int areaCode,int contentTypeId,String keyword) throws SQLException {
 		//areaCode=5&contentTypeId=28&keyword=산
 		Map<String, Object> map = new HashMap<String, Object>();
 		// put
-		
+		map.put("sido_code", areaCode);
+		map.put("content_type_id", contentTypeId);
+		map.put("keyword", keyword);
 		
 		return attractionMapper.listAttractionSearch(map);
 	}

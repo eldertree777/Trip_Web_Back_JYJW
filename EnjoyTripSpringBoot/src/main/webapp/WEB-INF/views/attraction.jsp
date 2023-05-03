@@ -136,7 +136,8 @@
       // 위 데이터를 가지고 공공데이터에 요청.
       // 받은 데이터를 이용하여 화면 구성.
       document.getElementById("btn-search").addEventListener("click", () => {
-        let searchUrl = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey="+serviceKey_go+"&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A";
+        //let searchUrl = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey="+serviceKey_go+"&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&listYN=Y&arrange=A";
+        let searchUrl = "${root}/api/listAttractionSearch?";
 	
         let areaCode = document.getElementById("search-area").value;
         let contentTypeId = document.getElementById("search-content-id").value;
@@ -160,21 +161,22 @@
       var positions; // marker 배열.
       function makeList(data) {
         document.querySelector("table").setAttribute("style", "display: ;");
-        let trips = data.response.body.items.item;
+        //let trips = data.response.body.items.item;
+        let trips = data;
         let tripList = ``;
         positions = [];
         trips.forEach((area) => {
-          tripList += "<tr onclick=moveCenter("+area.mapy + "," + area.mapx + ");>" +
-              "<td><img src="+ area.firstimage + " width=100px ></td>" +
+          tripList += "<tr onclick=moveCenter("+area.lat + "," + area.lon + ");>" +
+              "<td><img src="+ area.first_img_1 + " width=100px ></td>" +
               "<td>" + area.title + "</td>" +
               "<td>" + area.addr1 +" "+ area.addr2 + "</td>" +
-              "<td>" + area.mapy + "</td>" +
-              "<td>" + area.mapx + "</td>" +
+              "<td>" + area.lat + "</td>" +
+              "<td>" + area.lon + "</td>" +
             "</tr>";
 
           let markerInfo = {
             title: area.title,
-            latlng: new kakao.maps.LatLng(area.mapy, area.mapx),
+            latlng: new kakao.maps.LatLng(area.lat, area.lon),
           };
           positions.push(markerInfo);
         });

@@ -15,6 +15,7 @@ public class SidoService {
 	private SidoMapper sidomapper;
 	
 	public List<SidoDto> getAllSido(){
+		System.out.println("SidoService");
 		return sidomapper.getAllSido();
 	}
 }

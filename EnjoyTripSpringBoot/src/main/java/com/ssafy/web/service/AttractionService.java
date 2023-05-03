@@ -10,6 +10,6 @@ import com.ssafy.web.dto.AttractionDto;
 
 public interface AttractionService {
 	List<AttractionDto> listAttraction() throws SQLException;
-	List<AttractionDto> listAttractionSearch(AttractionDto dto) throws SQLException;
 	void updateRead_count(AttractionDto dto) throws SQLException;
+	List<AttractionDto> listAttractionSearch(int areaCode, int contentTypeId, String keyword) throws SQLException;
 }
