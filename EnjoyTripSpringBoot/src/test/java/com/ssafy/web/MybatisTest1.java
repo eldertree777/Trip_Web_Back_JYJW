@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ssafy.web.dto.BoardDto;
-import com.ssafy.web.dto.MemberDto;
+import com.ssafy.web.dto.UserDto;
 
 @SpringBootTest
 public class MybatisTest1 {
@@ -25,7 +25,7 @@ public class MybatisTest1 {
 	private SqlSession session;
 	
 	//mapper namespace
-	String ns = "com.ssafy.web.repository.";
+	String ns = "com.ssafy.web.repository.BoardRepository.";
 	
 	//ibatis의 SqlMapClient    ==  mybatis의 SqlSession
 	
@@ -44,7 +44,7 @@ public class MybatisTest1 {
 //	@Test
 //	public void testSessionList() throws Exception{
 //		//SqlSession(MyBatis에 정의된 sql문 호출하는 객체)객체 테스트	
-//		List<MemDTO> list = session.selectList("ssafy.member.selectList");
+//		List<MemDTO> list = session.selectList("ssafy.user.selectList");
 //		for (MemDTO m : list) {
 //			System.out.println(m);
 //		}
@@ -54,11 +54,11 @@ public class MybatisTest1 {
 	public void testDynamicSql() throws Exception{
 		//SqlSession(MyBatis에 정의된 sql문 호출하는 객체)객체 테스트
 		Map<String, Integer> map = new HashMap<>();
-		Map<String, String> memberMap = new HashMap<>();
+		Map<String, String> userMap = new HashMap<>();
 		//map.put("col", "num");
 		//map.put("num", "111");
-		MemberDto mDto = new MemberDto();
-		MemberDto mDto2 = new MemberDto();
+		UserDto mDto = new UserDto();
+		UserDto mDto2 = new UserDto();
 		mDto.setUserId("headmeat");
 		mDto.setEmailId("headmeat");
 		mDto.setEmailDomain("ssafy");
@@ -72,10 +72,13 @@ public class MybatisTest1 {
 		mDto2.setUserId("eldertree777");
 		mDto2.setUserName("Hwang");
 		mDto2.setUserPwd("5678");
-		int cnt = session.insert(ns + "memberInsert", mDto);
-		cnt += session.insert(ns + "memberInsert", mDto2);
+		session.delete(ns + "userDelete", mDto.getUserId());
+		session.delete(ns + "userDelete", mDto2.getUserId());
+		int cnt = session.insert(ns + "userInsert", mDto);
+		cnt += session.insert(ns + "userInsert", mDto2);
 		System.out.println("2명 중 " + cnt + "명 입력 성공");
 		
+		/*
 		BoardDto dto = new BoardDto();
 		BoardDto dto2 = new BoardDto();
 		dto.setContent("o");
@@ -105,8 +108,9 @@ public class MybatisTest1 {
 			System.out.println(list.get(i));
 		}
 		
-		System.out.println();
+		System.out.println();*/
 		
+		/*
 		map.clear();
 		int boardId = session.selectOne(ns + "selectRowId");
 		dto = session.selectOne(ns + "selectBoardOne", boardId);
@@ -138,37 +142,38 @@ public class MybatisTest1 {
 		System.out.println();
 		cnt = session.delete(ns + "boardDelete", deleteList);
 		System.out.println(cnt + "개 삭제 완료");
+		*/
 		
 //		map.clear();
-//		MemberDto memberDto = new MemberDto();
-//		memberDto.setUserId("headmeat");
-//		memberDto.setUserPwd("1234");
-//		memberDto.setUserName("최재용");
-//		memberDto.setEmailId("headmeat@ssafy.com");
-//		memberDto.setJoinDate("2022-10-01 15:03:01");
-//		memberDto.setEmailDomain("ssafy");
+//		UserDto userDto = new UserDto();
+//		userDto.setUserId("headmeat");
+//		userDto.setUserPwd("1234");
+//		userDto.setUserName("최재용");
+//		userDto.setEmailId("headmeat@ssafy.com");
+//		userDto.setJoinDate("2022-10-01 15:03:01");
+//		userDto.setEmailDomain("ssafy");
 //		String iwantnewId = "icebreakers";
 //		
-//		memberMap.put("userId", iwantnewId);
-//		memberMap.put("userPwd", mDto.getUserPwd());
-//		memberMap.put("userName", mDto.getUserName());
-//		memberMap.put("emailId", mDto.getEmailId());
-//		memberMap.put("emailDomain", mDto.getEmailDomain());
-//		memberMap.put("joinDate", mDto.getJoinDate());
-//		memberMap.put("originalId", mDto.getUserId());
-//		cnt = session.update(ns + "memberUpdate", memberMap);
+//		userMap.put("userId", iwantnewId);
+//		userMap.put("userPwd", mDto.getUserPwd());
+//		userMap.put("userName", mDto.getUserName());
+//		userMap.put("emailId", mDto.getEmailId());
+//		userMap.put("emailDomain", mDto.getEmailDomain());
+//		userMap.put("joinDate", mDto.getJoinDate());
+//		userMap.put("originalId", mDto.getUserId());
+//		cnt = session.update(ns + "userUpdate", userMap);
 //		System.out.println("업데이트 " + ((cnt > 0)?"성공":"실패"));
 		
 		Map<String, String> memMap = new HashMap<>();
 		memMap.put("userId", "eldertree777");
-		memMap.put("userPwd", "1234");
-		MemberDto mem = session.selectOne(ns + "loginMember", memMap);
-		System.out.println("loginMember: " + mem);
+		memMap.put("userPwd", "5678");
+		UserDto mem = session.selectOne(ns + "loginUser", memMap);
+		System.out.println("loginUser: " + mem);
 		System.out.println();
 		
 		memMap.put("userPwd", "456789");
-		cnt = session.update(ns + "memberUpdate", memMap);
-		System.out.println("[memberUpdate]");
+		cnt = session.update(ns + "userUpdate", memMap);
+		System.out.println("[userUpdate]");
 		System.out.println(cnt + "명 업데이트 완료");
 	}
 }
