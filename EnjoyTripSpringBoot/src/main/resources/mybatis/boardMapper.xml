@@ -118,34 +118,34 @@
 		article_no=#{article_no}
 	</delete>
 	<!-- User DML Section -->
+	<!-- param, result 타입 정해야 함 -->
+	<select id = "idCheck" parameterType = "string" resultType = "int">
+		select count(*) from user where user_id = #{userId}
+	</select>
 	<select id="selectUserList" resultMap="userMap">
-		select user_id,
-		user_name, user_password, email_id, email_domain, join_date from
-		user
+		select user_id, user_name, user_password, email_id, email_domain, join_date, role from user
 	</select>
 	<select id="selectUserOne" parameterType="string"
 		resultMap="userMap">
-		select * from user where user_id = #{user_id}
+		select * from user where 
+		user_id = #{user_id}
 	</select>
-	<select id="loginUser" parameterType="string"
-		resultMap="userMap">
-		select * from user where user_id = #{userId} and
+	<select id="loginUser" parameterType="java.util.Map" resultMap="userMap">
+		select * from user where 
+		user_id = #{userId} and
 		user_password = #{userPwd}
 	</select>
 	<select id="selectUserCount" resultType="int">
-		select count(*) from
-		user;
+		select count(*) from user
 	</select>
 	<insert id="userInsert" parameterType="userDto">
-		insert into user (user_id, user_name, user_password, email_id,
-		email_domain)
-		<!-- values(#{userId},#{title},#{content}) -->
-		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain})
+		insert into user (user_id, user_name, user_password, email_id, email_domain, join_date, role)
+		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain}, #{joinDate}, #{role})
 	</insert>
 	<update id="userUpdate" parameterType="java.util.Map">
-		<!-- update board set no = #{no}, userid = #{userid}, title = #{title}, 
-			content = #{content} -->
-		update user set user_password = #{userPwd} where user_id = #{userId}
+		update user set 
+		user_password = #{userPwd} 
+		where user_id = #{userId}
 	</update>
 	<delete id="userDelete" parameterType="string">
 		delete from user

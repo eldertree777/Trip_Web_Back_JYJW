@@ -15,7 +15,5 @@ public interface BoardRepository {
 	void updateHit(int articleNo) throws SQLException;
 	int modifyArticle(BoardDto boardDto) throws SQLException;
 	int deleteArticle(int articleNo) throws SQLException;
-//	int deleteArticle(List<String> articles) throws SQLException;
-	
+//	int deleteArticle(List<String> articles) throws SQLException;	
 }
-

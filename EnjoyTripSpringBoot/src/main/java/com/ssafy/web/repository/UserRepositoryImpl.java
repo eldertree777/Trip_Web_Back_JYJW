@@ -30,7 +30,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public UserDto loginMember(String userId, String userPwd) throws SQLException {
+	public UserDto loginUser(String userId, String userPwd) throws SQLException {
 		// TODO Auto-generated method stub
 		Map<String, String> map = new HashMap<>();
 		map.put("userId", userId);
