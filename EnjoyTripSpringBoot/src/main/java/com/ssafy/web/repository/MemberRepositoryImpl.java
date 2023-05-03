@@ -55,5 +55,4 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public int delete(String userId) throws SQLException {
 		return session.delete(ns + "memberDelete", userId);
 	}
-
 }

@@ -8,6 +8,7 @@ public class UserDto {
 	private String emailDomain;
 	private String joinDate;
 	private int role;
+	
 	public String getUserId() {
 		return userId;
 	}
