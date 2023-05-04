@@ -7,12 +7,14 @@
   <typeAliases>
   	<typeAlias type="com.ssafy.web.dto.BoardDto" alias="boardDto"/>
   	<typeAlias type="com.ssafy.web.dto.MemberDto" alias="memberDto"/>
+  	<typeAlias type="com.ssafy.web.dto.UserDto" alias="userDto"/>
   	<typeAlias type="com.ssafy.web.dto.AttractionDto" alias="attractionDto"/>
   </typeAliases>
   
   <mappers>
     <mapper resource="mybatis/boardMapper.xml"/>
     <mapper resource="mybatis/AttractionMapper.xml"/>
+    <mapper resource="mybatis/userMapper.xml"/>
     <!-- <mapper resource="mybatis/boardMapper2.xml"/> -->
   </mappers>
 </configuration>
