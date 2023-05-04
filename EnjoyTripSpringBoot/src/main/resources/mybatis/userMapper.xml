@@ -42,9 +42,9 @@
 	</select>
 	<insert id="userInsert" parameterType="userDto">
 		insert into user (user_id, user_name, user_password, email_id,
-		email_domain)
+		email_domain, role)
 		<!-- values(#{userId},#{title},#{content}) -->
-		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain})
+		values(#{userId}, #{userName}, #{userPwd}, #{emailId}, #{emailDomain}, #{role})
 	</insert>
 	<update id="userUpdate" parameterType="java.util.Map">
 		<!-- update board set no = #{no}, userid = #{userid}, title = #{title}, 

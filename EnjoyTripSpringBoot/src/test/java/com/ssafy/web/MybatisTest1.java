@@ -40,7 +40,7 @@ public class MybatisTest1 {
 		user.setUserName("testName");
 		user.setEmailDomain("ssafy");
 		user.setEmailId("testEmail");
-		user.setJoinDate("2022-10-05 10:03:01");
+		//user.setJoinDate("2022-10-05 10:03:01");
 		user.setRole(0);
 		
 		//delete if exists
@@ -60,7 +60,7 @@ public class MybatisTest1 {
 		
 		//loginUser
 		UserDto user2 = session.selectOne(userNs + "loginUser", map);
-		System.out.println((user2 == null)?"일치":"불일치");
+		System.out.println((user2 == null)?"불일치":"일치");
 		
 		//selectList
 		List<UserDto> userList = session.selectList(userNs + "selectUserList");
