@@ -1,97 +1,75 @@
 package com.ssafy.web.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.ssafy.web.dto.BoardDto;
-import com.ssafy.web.dto.MemberDto;
-import com.ssafy.web.service.BoardService;
+import com.ssafy.web.dto.UserDto;
+import com.ssafy.web.service.UserService;
 
 @RestController
-@RequestMapping("/info")
+@RequestMapping("/restInfo")
 public class RestInfoBoardController {
+
 	@Autowired
-	@Qualifier("BoardServiceImpl")
-	BoardService boardService;
+	@Qualifier("UserServiceImpl")
+	private UserService userService;
+	
+	//로그인
+	@GetMapping("/login")
+	public UserDto login(UserDto dto) throws SQLException {
+		System.out.println("login");
+		System.out.println(dto);
 
-	@GetMapping("/view")
-	public ModelAndView view(ModelAndView mv, int articleno, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		System.out.println(articleno);
+		// 로그인 처리
+		UserDto userDto = userService.loginUser(dto.getUserId(), dto.getUserPwd());
 
-		BoardDto boardDto = boardService.getArticle(articleno);
-		boardService.updateHit(articleno);
-
-		System.out.println(boardDto);
-
-		mv.addObject("article", boardDto);
-		mv.setViewName("/board/view");
-		return mv;
-	}
-
-	@GetMapping("/info_write")
-	public String info_write() {
-		return "board/write";
-	}
-
-	@PostMapping("/info_write")
-	public ModelAndView info_write(ModelAndView mv, BoardDto boardDto, HttpServletRequest request) throws Exception {
-		System.out.println("info_write");
-		HttpSession session = request.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		boardDto.setUserId(memberDto.getUserId());
-		boardService.writeArticle(boardDto);
-
-		mv.setViewName("redirect:/board");
-		return mv;
-	}
-
-	@GetMapping("/info_modify")
-	public ModelAndView info_modify(ModelAndView mv, String articleno, HttpServletRequest request) throws NumberFormatException, SQLException {
-		HttpSession session = request.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		
-		BoardDto boardDto = boardService.getArticle(Integer.parseInt(articleno));
-		
-		mv.addObject("article", boardDto);
-		mv.setViewName("board/modify");
-		return mv;
+		return userDto;
 	}
 	
-	@PostMapping("/info_modify")
-	public ModelAndView info_modify(ModelAndView mv, BoardDto boardDto, HttpServletRequest request) throws SQLException {
-		System.out.println("info_modify");
-		System.out.println(boardDto);
-		
-		HttpSession session = request.getSession();
-		MemberDto memberDto = (MemberDto) session.getAttribute("userinfo");
-		boardDto.setUserId(memberDto.getUserId());
-		
-		boardService.modifyArticle(boardDto);
-		mv.setViewName("redirect:/board");
-		return mv;
+	// 가입
+	@PostMapping("/join")
+	public int join(UserDto dto) throws SQLException {
+		System.out.println("join");
+		System.out.println(dto);
+
+		// 회원가입
+		int result = userService.joinUser(dto);
+
+		return result;
 	}
 	
-	@GetMapping("/info_delete")
-	public ModelAndView info_delete(ModelAndView mv, String articleno) throws SQLException {
-		List<String> nos = new ArrayList();
-		boardService.deleteArticle(Integer.parseInt(articleno));
-		mv.setViewName("redirect:/board");
+	//로그아웃
+	
+	// 삭제
+	@DeleteMapping("/delete")
+	public int delete(UserDto dto) throws SQLException {
+		System.out.println("delete");
+		System.out.println(dto);
+
+		// 회원 탈퇴
+		int result = userService.delete(dto.getUserId());
 		
-		return mv;
+		return result;
 	}
 	
+	// 회원정보 갱신
+	@PutMapping("/update")
+	public int update(UserDto dto) throws SQLException {
+		System.out.println("update");
+		System.out.println(dto);
+
+		// 회원 수정
+		int result = userService.update(dto.getUserId(), dto.getUserPwd());
+		System.out.println(result + " " + dto.getUserId() + " " +  dto.getUserPwd());
+		
+		return result;
+	}
 }

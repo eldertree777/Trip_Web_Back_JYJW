@@ -14,7 +14,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Autowired
 	SqlSession session;
 	
-	String ns = "com.ssafy.web.repository.BoardRepository.";
+	String ns = "com.ssafy.web.repository.UserRepository.";
 	
 	//중복 방지
 	@Override
@@ -36,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
 		map.put("userId", userId);
 		map.put("userPwd", userPwd);
 		
-		return session.selectOne(ns + "loginMember", map);
+		return session.selectOne(ns + "loginUser", map);
 	}
 
 	@Override

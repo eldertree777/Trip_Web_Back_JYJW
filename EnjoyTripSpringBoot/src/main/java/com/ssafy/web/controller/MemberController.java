@@ -41,29 +41,7 @@ public class MemberController {
 			session.setAttribute("userinfo", memberDto);
 
 			// cookie setting
-//			if ("ok".equals(saveid)) { // 아이디 저장을 체크 했다면.
-//				Cookie cookie = new Cookie("ssafy_id", dto.getUserId());
-//				cookie.setPath(request.getContextPath());
-////				크롬의 경우 400일이 최대
-////				https://developer.chrome.com/blog/cookie-max-age-expires/
-//				cookie.setMaxAge(60 * 60 * 24 * 365 * 40); // 40년간 저장.
-//				response.addCookie(cookie);
-//			} else { // 아이디 저장을 해제 했다면.
-//				Cookie cookies[] = request.getCookies();
-//				if (cookies != null) {
-//					for (Cookie cookie : cookies) {
-//						if ("ssafy_id".equals(cookie.getName())) {
-//							cookie.setMaxAge(0);
-//							response.addCookie(cookie);
-//							break;
-//						}
-//					}
-//				}
-//			}
 		}
-		// cookie
-
-		// session
 
 		mv.setViewName("redirect:/");
 		return mv;

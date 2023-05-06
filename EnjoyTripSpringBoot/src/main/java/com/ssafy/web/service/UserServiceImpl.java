@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int joinMember(UserDto userDto) throws SQLException {
+	public int joinUser(UserDto userDto) throws SQLException {
 		// TODO Auto-generated method stub
 		return repo.joinMember(userDto);
 	}
