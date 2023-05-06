@@ -8,7 +8,7 @@
 	<resultMap id="boardMap" type="infoBoardDto">
 		<result column="board_id" property="board_id"
 			jdbcType="INTEGER" javaType="int" />
-		<result column="user_id" property="userId" jdbcType="VARCHAR"
+		<result column="user_id" property="user_id" jdbcType="VARCHAR"
 			javaType="String" />
 		<result column="title" property="title" jdbcType="VARCHAR"
 			javaType="String" />
@@ -21,7 +21,8 @@
 	</resultMap>
 
 	<!-- infoBoard DML Section -->
-	<select id="selectBoardList" parameterType="java.util.Map" resultMap="boardMap">
+	<select id="selectBoardList" parameterType="java.util.Map"
+		resultMap="boardMap">
 		select * from info_board
 		<where>
 			<if test="word != null and word != '' ">
@@ -36,13 +37,13 @@
 		<!-- int type을 넘겨줘야 하므로 map은 Map<String, Integer> 타입 -->
 		order by board_id desc limit #{start}, #{listsize}
 	</select>
-	
+
 	<select id="selectBoardCount" resultType="int"
 		parameterType="java.util.Map">
 		select count(board_id)
 		from info_board
 		<where>
-		<if test="word != null and word != ''">
+			<if test="word != null and word != ''">
 				<if test="key == 'title'">
 					and title like concat('%', #{word}, '%')
 				</if>
@@ -60,19 +61,21 @@
 		select max(board_id) from
 		info_board;
 	</select>
-	
+
 	<insert id="boardInsert" parameterType="infoBoardDto">
 		insert into info_board
 		(user_id, title, content, hit)
-		values(#{userId},#{title},#{content},#{hit})
+		values(#{user_id},#{title},#{content},#{hit})
 	</insert>
-	
+
 	<update id="boardUpdate" parameterType="infoBoardDto">
-		update info_board set title = #{title}, content = #{content} where
+		update info_board set
+		title = #{title}, content = #{content} where
 		board_id = #{board_id}
 	</update>
 	<update id="updateHit" parameterType="int">
-		update info_board set hit = hit + 1 where board_id = #{board_id}
+		update info_board set hit =
+		hit + 1 where board_id = #{board_id}
 	</update>
 	<delete id="boardDelete" parameterType="java.util.List">
 		delete from info_board

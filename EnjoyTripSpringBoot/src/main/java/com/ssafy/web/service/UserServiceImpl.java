@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.web.dto.UserDto;
 import com.ssafy.web.repository.UserRepository;
@@ -16,12 +17,14 @@ public class UserServiceImpl implements UserService {
 	UserRepository repo;
 	
 	@Override
+	
 	public int idCheck(String userId) throws SQLException {
 		// TODO Auto-generated method stub
 		return repo.idCheck(userId);
 	}
 
 	@Override
+	@Transactional
 	public int joinUser(UserDto userDto) throws SQLException {
 		// TODO Auto-generated method stub
 		return repo.joinMember(userDto);
@@ -34,12 +37,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public int update(String userId, String userPwd) throws SQLException {
 		// TODO Auto-generated method stub
 		return repo.update(userId, userPwd);
 	}
 
 	@Override
+	@Transactional
 	public int delete(String userId) throws SQLException {
 		// TODO Auto-generated method stub
 		return repo.delete(userId);

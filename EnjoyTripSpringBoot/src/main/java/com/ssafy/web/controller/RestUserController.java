@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.web.dto.UserDto;
 import com.ssafy.web.service.UserService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/restUser")
+@Api(value="User")
 public class RestUserController {
 	
 	@Autowired

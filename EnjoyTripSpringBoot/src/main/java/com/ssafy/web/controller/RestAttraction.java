@@ -15,8 +15,11 @@ import com.ssafy.web.dto.SidoDto;
 import com.ssafy.web.service.AttractionService;
 import com.ssafy.web.service.SidoService;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/api")
+@Api(value="Attraction")
 public class RestAttraction {
 	
 	@Autowired

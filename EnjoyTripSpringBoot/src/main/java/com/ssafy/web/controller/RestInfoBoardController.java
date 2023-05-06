@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +20,11 @@ import com.ssafy.web.dto.InfoBoardDto;
 import com.ssafy.web.service.InfoBoardService;
 import com.ssafy.web.util.PageNavigation;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/restInfo")
+@Api(value="InfoBoard")
 public class RestInfoBoardController {
 
 	@Autowired
@@ -27,10 +32,9 @@ public class RestInfoBoardController {
 	private InfoBoardService infoBoardService;
 
 	@PostMapping("/write")
-	public int write(InfoBoardDto InfoBoardDto, HttpSession session)
+	public int write(InfoBoardDto InfoBoardDto)
 			throws Exception {
-		InfoBoardDto infoDto = (InfoBoardDto) session.getAttribute("userinfo");
-		InfoBoardDto.setUser_id(infoDto.getUser_id());
+		
 		int result = infoBoardService.writeArticle(InfoBoardDto);
 		return result;
 	}
@@ -67,7 +71,7 @@ public class RestInfoBoardController {
 		return dto;
 	}
 
-	@PostMapping("/modify")
+	@PutMapping("/modify")
 	public Map modify(InfoBoardDto baordDto, @RequestParam Map<String, String> map) {
 		Map<String, Object> sendMap = new HashMap<String, Object>();
 		sendMap.put("pgno", map.get("pgno"));
@@ -86,7 +90,7 @@ public class RestInfoBoardController {
 		return sendMap;
 	}
 
-	@GetMapping("/delete")
+	@DeleteMapping("/delete")
 	public int delete(String articleno) throws Exception {
 		int no = Integer.parseInt(articleno);
 		int result = infoBoardService.deleteArticle(no);

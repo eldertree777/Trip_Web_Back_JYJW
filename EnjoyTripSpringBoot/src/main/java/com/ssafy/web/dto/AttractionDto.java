@@ -1,7 +1,8 @@
 package com.ssafy.web.dto;
 
-import lombok.Data;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel
 public class AttractionDto {
 	int content_id;
 	int content_type_id;

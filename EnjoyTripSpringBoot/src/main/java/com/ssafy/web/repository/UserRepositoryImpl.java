@@ -26,6 +26,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	public int joinMember(UserDto userDto) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println(userDto);
 		return session.selectOne(ns + "userInsert", userDto);
 	}
 

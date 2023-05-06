@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.web.dto.InfoBoardDto;
 import com.ssafy.web.repository.BoardRepository;
@@ -22,6 +23,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	InfoBoardRepository repo;
 
 	@Override
+	@Transactional
 	public int writeArticle(InfoBoardDto boardDto) throws SQLException {
 		return repo.writeArticle(boardDto);
 	}
@@ -43,6 +45,7 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	}
 	
 	@Override
+	@Transactional
 	public PageNavigation makePageNavigation(Map<String, String> map) throws SQLException {
 		PageNavigation pageNavigation = new PageNavigation();
 
@@ -80,17 +83,20 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	}
 
 	@Override
+	@Transactional
 	public void updateHit(int articleNo) throws SQLException {
 		repo.updateHit(articleNo);
 	}
 
 	@Override
+	@Transactional
 	public int modifyArticle(InfoBoardDto boardDto) throws SQLException {
 		// TODO : BoardDaoImpl의 modifyArticle 호출
 		return repo.modifyArticle(boardDto);
 	}
 
 	@Override
+	@Transactional
 	public int deleteArticle(int articleNo) throws SQLException {
 		// TODO : BoardDaoImpl의 deleteArticle 호출
 		return repo.deleteArticle(articleNo);
