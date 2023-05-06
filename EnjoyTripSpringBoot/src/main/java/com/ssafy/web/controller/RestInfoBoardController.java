@@ -1,74 +1,95 @@
 package com.ssafy.web.controller;
 
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.web.dto.UserDto;
-import com.ssafy.web.service.UserService;
+import com.ssafy.web.dto.InfoBoardDto;
+import com.ssafy.web.service.InfoBoardService;
+import com.ssafy.web.util.PageNavigation;
 
 @RestController
 @RequestMapping("/restInfo")
 public class RestInfoBoardController {
 
 	@Autowired
-	@Qualifier("UserServiceImpl")
-	private UserService userService;
-	
-	//로그인
-	@GetMapping("/login")
-	public UserDto login(UserDto dto) throws SQLException {
-		System.out.println("login");
-		System.out.println(dto);
+	@Qualifier("InfoBoardServiceImpl")
+	private InfoBoardService infoBoardService;
 
-		// 로그인 처리
-		UserDto userDto = userService.loginUser(dto.getUserId(), dto.getUserPwd());
-
-		return userDto;
-	}
-	
-	// 가입
-	@PostMapping("/join")
-	public int join(UserDto dto) throws SQLException {
-		System.out.println("join");
-		System.out.println(dto);
-
-		// 회원가입
-		int result = userService.joinUser(dto);
-
+	@PostMapping("/write")
+	public int write(InfoBoardDto InfoBoardDto, HttpSession session)
+			throws Exception {
+		InfoBoardDto infoDto = (InfoBoardDto) session.getAttribute("userinfo");
+		InfoBoardDto.setUser_id(infoDto.getUser_id());
+		int result = infoBoardService.writeArticle(InfoBoardDto);
 		return result;
 	}
-	
-	//로그아웃
-	
-	// 삭제
-	@DeleteMapping("/delete")
-	public int delete(UserDto dto) throws SQLException {
-		System.out.println("delete");
-		System.out.println(dto);
 
-		// 회원 탈퇴
-		int result = userService.delete(dto.getUserId());
+	@GetMapping("/list")
+	public Map list(@RequestParam Map<String, String> map) throws Exception {
+		Map<String, Object> sendMap = new HashMap();
+
+		List<InfoBoardDto> list = infoBoardService.listArticle(map);
+		PageNavigation pageNavigation = infoBoardService.makePageNavigation(map);
 		
-		return result;
+		sendMap.put("pgno", map.get("pgno"));
+		sendMap.put("key", map.get("key"));
+		sendMap.put("word", map.get("word"));
+		sendMap.put("navigation", pageNavigation);
+		sendMap.put("articles", list);
+		
+		return sendMap;
 	}
-	
-	// 회원정보 갱신
-	@PutMapping("/update")
-	public int update(UserDto dto) throws SQLException {
-		System.out.println("update");
-		System.out.println(dto);
 
-		// 회원 수정
-		int result = userService.update(dto.getUserId(), dto.getUserPwd());
-		System.out.println(result + " " + dto.getUserId() + " " +  dto.getUserPwd());
+	@GetMapping("/view")
+	public InfoBoardDto view(String articleno) {
+		System.out.println(articleno);
+		InfoBoardDto dto = null;
+		
+		try {
+			dto = infoBoardService.getArticle(Integer.parseInt(articleno));
+			System.out.println(dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return dto;
+	}
+
+	@PostMapping("/modify")
+	public Map modify(InfoBoardDto baordDto, @RequestParam Map<String, String> map) {
+		Map<String, Object> sendMap = new HashMap<String, Object>();
+		sendMap.put("pgno", map.get("pgno"));
+		sendMap.put("key", map.get("key"));
+		sendMap.put("word", map.get("word"));
+		int result = -1;
+		
+		
+		try {
+			result = infoBoardService.modifyArticle(baordDto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sendMap.put("result", result);
+		
+		return sendMap;
+	}
+
+	@GetMapping("/delete")
+	public int delete(String articleno) throws Exception {
+		int no = Integer.parseInt(articleno);
+		int result = infoBoardService.deleteArticle(no);
 		
 		return result;
 	}
