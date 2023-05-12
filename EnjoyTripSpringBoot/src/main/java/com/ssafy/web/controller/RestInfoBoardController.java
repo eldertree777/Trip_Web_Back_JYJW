@@ -35,6 +35,7 @@ public class RestInfoBoardController {
 	public int write(InfoBoardDto InfoBoardDto)
 			throws Exception {
 		
+		System.out.println("Controller");
 		int result = infoBoardService.writeArticle(InfoBoardDto);
 		return result;
 	}

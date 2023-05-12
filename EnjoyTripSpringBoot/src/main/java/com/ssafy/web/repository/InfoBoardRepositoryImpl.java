@@ -25,6 +25,8 @@ public class InfoBoardRepositoryImpl implements InfoBoardRepository {
 
 	@Override
 	public int writeArticle(InfoBoardDto boardDto) throws SQLException {
+		System.out.println("Repo");
+		System.out.println(boardDto);
 		return session.insert(ns + "boardInsert", boardDto);
 	}
 

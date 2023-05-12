@@ -23,8 +23,8 @@ public class InfoBoardServiceImpl implements InfoBoardService {
 	InfoBoardRepository repo;
 
 	@Override
-	@Transactional
 	public int writeArticle(InfoBoardDto boardDto) throws SQLException {
+		System.out.println("Service");
 		return repo.writeArticle(boardDto);
 	}
 
