@@ -21,7 +21,7 @@ import com.ssafy.web.util.quickSort;
 public class BoardRepositoryImpl implements BoardRepository {
 	@Autowired
 	SqlSession session;
-	String ns = "com.ssafy.web.repository.BoardRepository.";
+	String ns = "com.ssafy.web.repository.InfoBoardRepository.";
 
 	@Override
 	public int writeArticle(BoardDto boardDto) throws SQLException {

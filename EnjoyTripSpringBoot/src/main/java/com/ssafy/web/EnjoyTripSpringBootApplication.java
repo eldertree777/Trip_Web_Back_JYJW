@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+//http://localhost:9003/enjoytrip/swagger-ui.html
 public class EnjoyTripSpringBootApplication {
 
 	public static void main(String[] args) {

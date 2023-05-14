@@ -55,7 +55,7 @@
 	</select>
 	<select id="selectBoardOne" parameterType="int"
 		resultMap="boardMap">
-		select * from board where board_id = #{board_id}
+		select * from info_board where board_id = #{board_id}
 	</select>
 	<select id="selectRowId" resultType="int">
 		select max(board_id) from
@@ -77,12 +77,14 @@
 		update info_board set hit =
 		hit + 1 where board_id = #{board_id}
 	</update>
-	<delete id="boardDelete" parameterType="java.util.List">
-		delete from info_board
+	<delete id="boardDelete" parameterType="java.util.List" >
+	<!-- <delete id="boardDelete" parameterType="int"> -->
+		delete from info_board 
 		where board_id in
-		<foreach item="item" index="index" collection="list" open="("
+ 		<foreach item="item" index="index" collection="list" open="("
 			separator="," close=")">
 			#{item}
 		</foreach>
+		
 	</delete>
 </mapper>

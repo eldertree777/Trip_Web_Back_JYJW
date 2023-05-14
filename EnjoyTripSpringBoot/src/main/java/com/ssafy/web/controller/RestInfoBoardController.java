@@ -4,17 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.web.dto.InfoBoardDto;
@@ -40,25 +42,38 @@ public class RestInfoBoardController {
 		int result = infoBoardService.writeArticle(InfoBoardDto);
 		return result;
 	}
-
+	
+//	public ResponseEntity<List<BoardDto>> listArticle(@ApiParam(value = "게시글을 얻기위한 부가정보.", required = true) BoardParameterDto boardParameterDto) throws Exception {
+//		logger.info("listArticle - 호출");
+//		return new ResponseEntity<List<BoardDto>>(boardService.listArticle(boardParameterDto), HttpStatus.OK);
+//	}
+	
 	@GetMapping("/list")
-	public Map list(@RequestParam Map<String, String> map) throws Exception {
+	public ResponseEntity<List<InfoBoardDto>> list(@RequestParam(required=false) Map<String, String> map) throws Exception {
 		Map<String, Object> sendMap = new HashMap();
-
+		
+		map = new HashMap<String, String>();
+		map.put("pgno", 1 + "");
+		map.put("key", "");
+		map.put("word", "");
+		
 		List<InfoBoardDto> list = infoBoardService.listArticle(map);
 		PageNavigation pageNavigation = infoBoardService.makePageNavigation(map);
 		
-		sendMap.put("pgno", map.get("pgno"));
-		sendMap.put("key", map.get("key"));
-		sendMap.put("word", map.get("word"));
-		sendMap.put("navigation", pageNavigation);
-		sendMap.put("articles", list);
+//		sendMap.put("pgno", map.get("pgno"));
+//		sendMap.put("key", map.get("key"));
+//		sendMap.put("word", map.get("word"));
+//		sendMap.put("navigation", pageNavigation);
+//		sendMap.put("articles", list);
 		
-		return sendMap;
+		
+		
+		return new ResponseEntity<List<InfoBoardDto>>(list, HttpStatus.OK);
 	}
 
-	@GetMapping("/view")
-	public InfoBoardDto view(String articleno) {
+	@GetMapping("/view/{articleno}")
+	public InfoBoardDto view(@PathVariable("articleno") String articleno) {
+		System.out.println("rest_info_view");
 		System.out.println(articleno);
 		InfoBoardDto dto = null;
 		
@@ -72,13 +87,14 @@ public class RestInfoBoardController {
 
 		return dto;
 	}
-
+	
+//	@RequestParam Map<String, String> map
 	@PutMapping("/modify")
-	public Map modify(InfoBoardDto baordDto, @RequestParam Map<String, String> map) {
-		Map<String, Object> sendMap = new HashMap<String, Object>();
-		sendMap.put("pgno", map.get("pgno"));
-		sendMap.put("key", map.get("key"));
-		sendMap.put("word", map.get("word"));
+	public int modify(@RequestBody InfoBoardDto baordDto) {
+//		Map<String, Object> sendMap = new HashMap<String, Object>();
+//		sendMap.put("pgno", map.get("pgno"));
+//		sendMap.put("key", map.get("key"));
+//		sendMap.put("word", map.get("word"));
 		int result = -1;
 		
 		
@@ -87,14 +103,15 @@ public class RestInfoBoardController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		sendMap.put("result", result);
+//		sendMap.put("result", result);
 		
-		return sendMap;
+		return result;
 	}
 
-	@DeleteMapping("/delete")
-	public int delete(String articleno) throws Exception {
+	@DeleteMapping("/{articleno}")
+	public int delete(@PathVariable("articleno") String articleno) throws Exception {
 		int no = Integer.parseInt(articleno);
+		System.out.println(no);
 		int result = infoBoardService.deleteArticle(no);
 		
 		return result;

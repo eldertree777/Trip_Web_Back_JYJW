@@ -44,8 +44,8 @@ public class InfoBoardRepositoryImpl implements InfoBoardRepository {
 	}
 
 	@Override
-	public InfoBoardDto getArticle(int articleNo) throws SQLException {
-		return session.selectOne(ns + "selectBoardOne", articleNo);
+	public InfoBoardDto getArticle(int board_id) throws SQLException {
+		return session.selectOne(ns + "selectBoardOne", board_id);
 	}
 
 	@Override
@@ -59,7 +59,9 @@ public class InfoBoardRepositoryImpl implements InfoBoardRepository {
 	}
 
 	@Override
-	public int deleteArticle(int articleNo) throws SQLException {
-		return session.delete(ns + "boardDelete", articleNo);
+	public int deleteArticle(int board_id) throws SQLException {
+		List<Integer> listt = new ArrayList();
+		listt.add(board_id);
+		return session.delete(ns + "boardDelete", listt);
 	}
 }
