@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.web.repository.AttractionMapper">
+	<resultMap id="AttractionMap" type="attractionDto">
+		<result column="content_id" property="content_id" jdbcType="INTEGER" javaType="int"/>
+		<result column="content_type_id" property="content_type_id" jdbcType="INTEGER" javaType="int"/>
+		<result column="lat" property="lat" jdbcType="INTEGER" javaType="int"/>
+		<result column="lon" property="lon" jdbcType="INTEGER" javaType="int"/>
+		<result column="read_count" property="read_count" jdbcType="INTEGER" javaType="int"/>
+		<result column="sido_code" property="sido_code" jdbcType="INTEGER" javaType="int"/>
+		<result column="gugun_code" property="gugun_code" jdbcType="INTEGER" javaType="int"/>
+		<result column="title" property="title" jdbcType="VARCHAR" javaType="String"/>
+		<result column="addr1" property="addr1" jdbcType="VARCHAR" javaType="String"/>
+		<result column="addr2" property="addr2" jdbcType="VARCHAR" javaType="String"/>
+		<result column="first_img_1" property="first_img_1" jdbcType="VARCHAR" javaType="String"/>
+		<result column="tel" property="tel" jdbcType="VARCHAR" javaType="String"/>
+	</resultMap>
+	
+	<select id="listAttraction" resultType="attractionDto">
+ 		select * from attraction_info
+	</select>
+	
+	<select id="listAttractionSearch" parameterType="java.util.Map" resultType="attractionDto">
+		select * from attraction_info
+		where 1=1 
+		and sido_code =  #{sido_code} 
+		and content_type_id = #{content_type_id} 
+		and title like concat('%', #{keyword}, '%')
+	</select>
+</mapper>
